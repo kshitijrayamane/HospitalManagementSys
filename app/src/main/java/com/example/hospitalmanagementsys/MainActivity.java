@@ -1,5 +1,6 @@
 package com.example.hospitalmanagementsys;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -11,45 +12,50 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
-
+    Button button,button2,button3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        button = (Button) findViewById(R.id.button);
+        button2 = (Button) findViewById(R.id.button2);
+        button3 = (Button) findViewById(R.id.button3);
+        btn_click();
+        btn_click2();
+        btn_click3();
+    }
+    public void btn_click() {
+        button.setOnClickListener(new View.OnClickListener() {
+                                      @Override
+                                      public void onClick(View view) {
+                                          Intent i1 = new Intent(MainActivity.this, LoginAdmin.class);
+                                          startActivity(i1);
+                                      }
+                                  }
+        );
+    }
+    public void btn_click2(){
+        button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent i2 = new Intent(MainActivity.this, LoginPatient.class);
+                startActivity(i2);
             }
-        });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
         }
-
-        return super.onOptionsItemSelected(item);
+        );
     }
-}
+
+    public void btn_click3(){
+            button3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i3 = new Intent(MainActivity.this, LoginDoctor.class);
+                    startActivity(i3);}});
+        };
+
+    }
+
