@@ -50,11 +50,7 @@ public class Register extends AppCompatActivity {
         return(!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
     }
 
-    boolean isPassword(EditText text)
-    {
-        CharSequence password = text.getText().toString();
-        return(!TextUtils.isEmpty((password) && Patterns.PASSWORD.matcher(password).matches()));
-    }
+
     private void checkDataEntered()
     {
 
