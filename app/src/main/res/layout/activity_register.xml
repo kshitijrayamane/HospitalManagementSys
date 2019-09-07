@@ -16,7 +16,8 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="130dp" />
+        tools:layout_editor_absoluteY="130dp"
+        tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/editText4"
@@ -73,18 +74,20 @@
         android:hint="Email"
         android:inputType="textEmailAddress"
         tools:layout_editor_absoluteX="98dp"
-        tools:layout_editor_absoluteY="349dp" />
+        tools:layout_editor_absoluteY="349dp"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/button4"
         android:layout_width="211dp"
         android:layout_height="77dp"
         android:layout_marginTop="64dp"
-        android:background="@back"
+        android:background="@drawable/back"
         android:text="Register"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText9"
         app:layout_constraintVertical_bias="0.0" />
@@ -96,6 +99,7 @@
         android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="Mobile _No"
+        android:maxLength="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
