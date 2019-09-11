@@ -18,7 +18,7 @@ import static android.provider.Telephony.TextBasedSmsColumns.ADDRESS;
 
 public class Database extends SQLiteOpenHelper
 {
-    public static final String DATABASE_NAME = "Hospitaldb.db";
+    public static final String DATABASE_NAME = "Hospital.db";
     public static final String TABLE_NAME = "Patient_table";
     public static final String NAME = "Name";
     public static final String ADDRESS = "Address";
@@ -27,22 +27,41 @@ public class Database extends SQLiteOpenHelper
     public static final String EMAIL_ID = "email_id";
     public static final String PASSWORD = "password";
 
+
+
+
+
+
+
+
+
     public Database(Context context)
     {
+
         super(context,DATABASE_NAME, null, 1);
     }
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    public boolean insertData(SQLiteDatabase db, int old, int newVer)
+
+
+    @Override
+    public void onCreate(SQLiteDatabase db)
     {
-        db = this.getWritableDatabase();
+
+
+        db.execSQL("create table " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT,NAME TEXT,ADDRESS TEXT,MOBILE_NO TEXT,AGE TEXT,EMAIL_ID TEXT,PASSWORD TEXT)");
+    }
+
+    public boolean insertData(String name,String addr ,String mno,String age,String emailid,String pass)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(NAME, NAME);
-        contentValues.put(ADDRESS, ADDRESS);
-        contentValues.put(MOBILE_NO,Integer.parseInt(MOBILE_NO));
-        contentValues.put(AGE,Integer.parseInt(AGE));
-        contentValues.put(EMAIL_ID, EMAIL_ID);
-        contentValues.put(PASSWORD, PASSWORD);
+        contentValues.put(NAME, name);
+        contentValues.put(ADDRESS, addr);
+        contentValues.put(MOBILE_NO,mno);
+        contentValues.put(AGE,age);
+        contentValues.put(EMAIL_ID, emailid);
+        contentValues.put(PASSWORD,pass );
         long result = db.insert(TABLE_NAME,null,contentValues);
+        db.close();
         if(result == -1)
             return  false;
         else
@@ -72,11 +91,30 @@ public class Database extends SQLiteOpenHelper
       Cursor res = db.rawQuery("select * from " + TABLE_NAME,null);
       return res;
     }
-    @Override
-    public void onCreate(SQLiteDatabase db)
+
+    public boolean CheckUser(String eid,String pass)
     {
-        db.execSQL("create table " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT,NAME TEXT,ADDRESS TEXT,MOBILE_NO INTEGER,AGE INTEGER,EMAIL_ID TEXT,PASSWORD TEXT)");
+        SQLiteDatabase  db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from " + TABLE_NAME +" WHERE EMAIL_ID='"+eid+"' AND PASSWORD='"+pass +"' ",null);
+       if(res.getCount()==1)
+        {
+            res.close();
+            db.close();
+            return true;
+
+
+        }
+        else
+        {
+            res.close();
+            db.close();
+            return false;
+        }
+
     }
+
+
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int old, int newVer)
     {

@@ -15,13 +15,45 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-@RequiresApi(api = Build.VERSION_CODES.N)
+
 public class Register extends AppCompatActivity {
-    Button button4; EditText editText,editText2,editText3,editText4,editText8,editText9,editText10;
+    Button button4;
+    EditText editText,editText2,editText3,editText4,editText8,editText9,editText10;
+
+    String  name,addr,mno,age,emailid,pass;
+    Database mydb;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAddr(String addr) {
+        this.addr = addr;
+    }
+
+    public void setMno(String mno) {
+        this.mno = mno;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public void setEmailid(String emailid) {
+        this.emailid = emailid;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_register);
         button4 = (Button)findViewById(R.id.button4);
         btn4_click();
@@ -31,7 +63,12 @@ public class Register extends AppCompatActivity {
         editText2 = findViewById(R.id.editText2);
         editText10 = findViewById(R.id.editText10);
         editText8 = findViewById(R.id.editText8);
+
+        mydb=new Database(this);
+
         button4.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View view) {
                 checkDataEntered();
@@ -88,6 +125,44 @@ public class Register extends AppCompatActivity {
         {
             editText.setError("Enter a Valid Mobile No");
         }
+
+
+        getData();
+      boolean b= mydb.insertData(name,addr,mno,age,emailid,pass);
+
+
+      if(b==true ){
+          Toast t = Toast.makeText(this, "You Register Sucessfully!", Toast.LENGTH_SHORT);
+          t.show();
+
+          Intent i2 = new Intent(Register.this, LoginPatient.class);
+          startActivity(i2);
+
+      }
+
+      else {
+
+
+          Toast t = Toast.makeText(this, "Register unsucessfully!", Toast.LENGTH_SHORT);
+          t.show();
+      }
+      }
+
+
+
+
+
+    public void getData()
+    {
+        setName(editText3.getText().toString());
+        setAddr(editText4.getText().toString());
+        setMno(editText.getText().toString());
+        setAge(editText2.getText().toString());
+        setEmailid(editText10.getText().toString());
+        setPass(editText8.getText().toString());
+
     }
-    //Database.insertData(SQLiteDatabase db, int old, int newVer);
+
+
+
 }
